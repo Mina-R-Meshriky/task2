@@ -1,0 +1,24 @@
+{
+    "name": "mina_meshriky/scandiweb_task",
+    "license": "proprietary",
+    "description": "test task by Scandiweb",
+    "type": "api",
+    "authors": [
+        {
+            "name": "Mina Meshriky",
+            "email": "mina.r.meshriky@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "ext-json": "*"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

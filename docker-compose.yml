@@ -1,0 +1,21 @@
+services:
+  apache:
+    image: dev-image-php74-apache-mysql
+    build:
+      context: .
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+
+  mysql:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
