@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 require __DIR__.'/vendor/autoload.php';
 
+$config = require 'config.php';
+
+\App\Helpers\Database\Database::getInstance($config['database']);
+
 $router = new \App\Helpers\Router\Router();
 
 $router->addRoute('get', '/products', 'Domain\Product\ProductController@index');
