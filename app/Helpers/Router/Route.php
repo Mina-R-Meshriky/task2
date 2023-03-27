@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers\Router;
 
+use App\Helpers\App;
 use App\Helpers\Response\Response;
 
 final class Route
@@ -62,8 +63,8 @@ final class Route
     {
         array_shift($pathParts);
 
-        $c = $this->getController();
-        $c = new $c();
+        $c = App::resolve($this->getController());
+
         return $c->{$this->getHandler()}(...$pathParts);
     }
 

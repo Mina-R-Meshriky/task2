@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
+use App\Helpers\App;
+use App\Helpers\Container\Container;
+use App\Helpers\Database\Database;
+
 require __DIR__.'/vendor/autoload.php';
 
 $config = require 'config.php';
 
-\App\Helpers\Database\Database::getInstance($config['database']);
+App::setContainer(new Container());
+
+App::bind(Database::class, function() use ($config) {
+    return Database::getInstance($config['database']);
+});
 
 $router = new \App\Helpers\Router\Router();
 
