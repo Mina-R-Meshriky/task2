@@ -11,10 +11,13 @@
     ],
     "require": {
         "php": "^7.4",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
+        "mockery/mockery": "^1.5",
         "nunomaduro/phpinsights": "^2.7",
+        "pestphp/pest": "^1.22",
         "phpunit/phpunit": "^9.6"
     },
     "config": {
@@ -22,7 +25,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "pestphp/pest-plugin": true
         }
     },
     "autoload": {
