@@ -24,7 +24,7 @@ class Database
     {
     }
 
-    final protected function __wakeup(): void
+    protected function __wakeup(): void
     {
     }
 
@@ -46,5 +46,28 @@ class Database
         $stmt = $this->connection->prepare($query);
         $stmt->execute($params);
         return $stmt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOne(string $query, ?array $params = [])
+    {
+       return $this->query($query, $params)->fetch();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMany(string $query, ?array $params = []): array
+    {
+        return $this->query($query, $params)->fetchAll();
+    }
+
+    /**
+     * @return false|string
+     */
+    public function lastInsertedId() {
+        return $this->connection->lastInsertId();
     }
 }
