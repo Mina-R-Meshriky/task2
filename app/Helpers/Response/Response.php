@@ -16,6 +16,10 @@ class Response
     private ?string $content;
     private int $code;
 
+    public static function make(): self
+    {
+        return new self();
+    }
 
     public function __construct()
     {
