@@ -3,14 +3,14 @@
 namespace App\Domain\Product;
 
 
-use App\Helpers\Validator\Integer;
-use App\Helpers\Validator\Letters;
-use App\Helpers\Validator\Max;
-use App\Helpers\Validator\In;
-use App\Helpers\Validator\Required;
-use App\Helpers\Validator\OnlyIf;
-use App\Helpers\Validator\Unique;
-use App\Helpers\Validator\Validator;
+use App\Core\Validator\Integer;
+use App\Core\Validator\Letters;
+use App\Core\Validator\Max;
+use App\Core\Validator\In;
+use App\Core\Validator\Required;
+use App\Core\Validator\OnlyIf;
+use App\Core\Validator\Unique;
+use App\Core\Validator\Validator;
 
 class ProductDTO
 {

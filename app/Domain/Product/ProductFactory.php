@@ -4,7 +4,7 @@ namespace App\Domain\Product;
 
 use App\Domain\Product\ProductType\ProductTypeFactory;
 use App\Domain\Product\ProductType\ProductTypeRepo;
-use App\Helpers\App;
+use App\Core\App;
 
 class ProductFactory
 {

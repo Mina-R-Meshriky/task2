@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Container;
+namespace App\Core\Container;
 
 use Psr\Container\NotFoundExceptionInterface;
 use Exception;

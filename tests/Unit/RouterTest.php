@@ -7,7 +7,7 @@ class RouterTest extends TestCase
 
     public function test_throw_an_exception_if_no_routes_are_defined()
     {
-        $router = new \App\Helpers\Router\Router();
+        $router = new \App\Core\Router\Router();
 
         $this->expectExceptionCode(500);
 
@@ -16,7 +16,7 @@ class RouterTest extends TestCase
 
     public function test_router_should_have_method_to_add_routes()
     {
-        $router = new \App\Helpers\Router\Router();
+        $router = new \App\Core\Router\Router();
 
         $router->addRoute('get', '/', 'Domain\Something\SomeController@index');
 
@@ -27,7 +27,7 @@ class RouterTest extends TestCase
 
     public function test_routes_has_path_method_controller_handler()
     {
-        $router = new \App\Helpers\Router\Router();
+        $router = new \App\Core\Router\Router();
 
         $router->addRoute('get', '/', 'Domain\Something\SomeController@index');
 
@@ -41,7 +41,7 @@ class RouterTest extends TestCase
 
     public function test_2_paths_can_exist_but_with_different_methods()
     {
-        $router = new \App\Helpers\Router\Router();
+        $router = new \App\Core\Router\Router();
 
         $router->addRoute('get', '/', 'Domain\Something\SomeController@index');
         $router->addRoute('post', '/', 'Domain\Something\SomeController@index');
@@ -51,7 +51,7 @@ class RouterTest extends TestCase
 
     public function test_if_route_does_not_exist_it_will_return_not_found_response()
     {
-        $router = new \App\Helpers\Router\Router();
+        $router = new \App\Core\Router\Router();
         $router->addRoute('get', '/', 'Domain\Something\SomeController@index');
 
         $response = $router->serveRoute('/unknown', 'GET');

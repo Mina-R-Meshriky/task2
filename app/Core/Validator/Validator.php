@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Helpers\Validator;
+namespace App\Core\Validator;
 
 
-use App\Helpers\Exceptions\ValidationException;
+use App\Core\Exceptions\ValidationException;
 
 class Validator
 {

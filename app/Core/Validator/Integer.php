@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Helpers\Validator;
+namespace App\Core\Validator;
 
-class Letters implements RuleInterface
+class Integer implements RuleInterface
 {
 
     public function valid($value): bool
     {
-        return is_string($value);
+        return is_int($value) || ctype_digit($value);
     }
 
     public function errorMessage(): string
     {
-        return "This value should be a string";
+        return "This value should be an integer";
     }
 
     public function isStopping(): bool

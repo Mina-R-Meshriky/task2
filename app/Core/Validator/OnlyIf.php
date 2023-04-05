@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Validator;
+namespace App\Core\Validator;
 
 
 class OnlyIf implements RuleInterface

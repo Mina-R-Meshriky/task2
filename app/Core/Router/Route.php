@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Helpers\Router;
+namespace App\Core\Router;
 
-use App\Helpers\App;
-use App\Helpers\Response\Response;
+use App\Core\App;
+use App\Core\Response\Response;
 
 final class Route
 {

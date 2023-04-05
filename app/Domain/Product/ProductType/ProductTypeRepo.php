@@ -2,7 +2,7 @@
 
 namespace App\Domain\Product\ProductType;
 
-use App\Helpers\Database\Repository;
+use App\Core\Database\Repository;
 
 class ProductTypeRepo extends Repository
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Core;
 
-use App\Helpers\Container\Container;
+use App\Core\Container\Container;
 
 class App
 {

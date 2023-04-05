@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers\Exceptions;
+namespace App\Core\Exceptions;
 
-use App\Helpers\Response\Response;
+use App\Core\Response\Response;
 use Exception;
 
 class ExceptionHandler

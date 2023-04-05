@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Helpers\Validator;
+namespace App\Core\Validator;
 
-use App\Helpers\App;
-use App\Helpers\Database\Database;
+use App\Core\App;
+use App\Core\Database\Database;
 
 trait DatabaseRuleTrait
 {

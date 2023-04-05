@@ -7,8 +7,8 @@ namespace App\Domain\Product\Http;
 use App\Domain\Product\ProductDTO;
 use App\Domain\Product\ProductService;
 use App\Domain\Shared\Controller;
-use App\Helpers\Exceptions\BadRequestException;
-use App\Helpers\Response\Response;
+use App\Core\Exceptions\BadRequestException;
+use App\Core\Response\Response;
 use stdClass;
 
 class ProductController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Database;
+namespace App\Core\Database;
 
 class Repository implements RepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 it('can get all records from the repository', function () {
 
-    $database = Mockery::mock(\App\Helpers\Database\Database::class);
+    $database = Mockery::mock(\App\Core\Database\Database::class);
     $database->shouldReceive('getMany')
              ->andReturn([
                  [
@@ -15,14 +15,14 @@ it('can get all records from the repository', function () {
                  ],
              ]);
 
-    $repo = new \App\Helpers\Database\Repository($database, 'sometable');
+    $repo = new \App\Core\Database\Repository($database, 'sometable');
 
     expect($repo->all())->toBeArray()->toHaveCount(2);
 });
 
 it('can get a certain record from the repository', function () {
 
-    $database = Mockery::mock(\App\Helpers\Database\Database::class);
+    $database = Mockery::mock(\App\Core\Database\Database::class);
     $database->shouldReceive('getOne')
              ->andReturn(
                  [
@@ -32,21 +32,21 @@ it('can get a certain record from the repository', function () {
                  ],
              );
 
-    $repo = new \App\Helpers\Database\Repository($database, 'sometable');
+    $repo = new \App\Core\Database\Repository($database, 'sometable');
 
     expect($repo->get(2))->toBeArray()->toHaveCount(3);
 });
 
 it('can create a record', function () {
 
-    $database = Mockery::mock(\App\Helpers\Database\Database::class);
+    $database = Mockery::mock(\App\Core\Database\Database::class);
     $stmt = Mockery::mock(PDOStatement::class);
     $stmt->shouldReceive('errorCode')->andReturnNull();
 
     $database->shouldReceive('query')->andReturn($stmt);
     $database->shouldReceive('lastInsertedId')->andReturn(1);
 
-    $repo = new \App\Helpers\Database\Repository($database, 'sometable');
+    $repo = new \App\Core\Database\Repository($database, 'sometable');
 
     expect($repo->create(['col' => 'value']))->toBeInt();
 });

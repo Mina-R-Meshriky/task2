@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Helpers\App;
-use App\Helpers\Container\Container;
-use App\Helpers\Database\Database;
-use App\Helpers\Exceptions\ExceptionHandler;
-use App\Helpers\Router\Router;
+use App\Core\App;
+use App\Core\Container\Container;
+use App\Core\Database\Database;
+use App\Core\Exceptions\ExceptionHandler;
+use App\Core\Router\Router;
 
 require __DIR__.'/vendor/autoload.php';
 

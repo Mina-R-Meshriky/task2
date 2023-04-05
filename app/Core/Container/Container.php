@@ -4,7 +4,7 @@
  * credits to https://dev.to/azibom/make-your-own-service-container-php-51oe
  */
 
-namespace App\Helpers\Container;
+namespace App\Core\Container;
 
 
 use Psr\Container\ContainerExceptionInterface;
