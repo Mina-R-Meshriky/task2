@@ -39,9 +39,7 @@ class Router
 
         $path = trim(parse_url($requestUri)['path'], '\/');
 
-        $pathParts = explode('/', $path);
-
-        if ($route = $this->getRoute($method, $pathParts)) {
+        if ($route = $this->getRoute($method, $path, $pathParts)) {
             return $route->handle($pathParts);
         }
 
@@ -49,13 +47,11 @@ class Router
     }
 
 
-    public function getRoute(string $method, array $pathParts): ?Route
+    public function getRoute(string $method, string $path, &$matches): ?Route
     {
-        $base = $pathParts[0];
-        $argsCount = count($pathParts) - 1;
-
         foreach ($this->getRoutes() as $r) {
-            if ($method.$base.$argsCount == $r->getMethod().$r->getBase().count($r->getArgs())) {
+            if (preg_match('/^'.$r->getIdentifier().'$/', $method.$path, $matches)) {
+                array_shift($matches);
                 return $r;
             }
         }

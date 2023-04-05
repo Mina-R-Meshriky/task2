@@ -12,7 +12,7 @@ class ProductFactory
     public static function make(array $data)
     {
         $product = new Product();
-        $productTypeData = App::resolve(ProductTypeRepo::class)->get($data['product_type_id']);
+        $productTypeData = App::resolve(ProductTypeRepo::class)->getByColumn('slug', $data['product_type']);
 
         return $product
             ->setId($data['id'])

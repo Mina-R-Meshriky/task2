@@ -37,6 +37,11 @@ final class Route
         return $this->method;
     }
 
+    public function getIdentifier()
+    {
+       return str_replace('/', '\/', $this->method.$this->path);
+    }
+
     public function getController(): string
     {
         return '\App\\'.$this->controller;
@@ -61,8 +66,6 @@ final class Route
 
     public function handle(array $pathParts): Response
     {
-        array_shift($pathParts);
-
         $c = App::resolve($this->getController());
 
         return $c->{$this->getHandler()}(...$pathParts);

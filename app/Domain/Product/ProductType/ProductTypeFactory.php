@@ -6,16 +6,20 @@ class ProductTypeFactory
 {
 
     /**
-     * @param  array  $data
+     * @param  ?array  $data
      * @return ProductType
      */
-    public static function make(array $data): ProductType
+    public static function make(?array $data): ?ProductType
     {
-        $type = new ProductType();
+        if (is_null($data)) {
+            return null;
+        }
 
-        return $type
+        return (new ProductType())
             ->setId($data['id'])
-            ->setName($data['name']);
+            ->setName($data['name'])
+            ->setSlug($data['slug'])
+            ->setRequire($data['required']);
     }
 
 

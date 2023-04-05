@@ -96,7 +96,7 @@ class Container implements ContainerInterface
         }
         $params = [];
         foreach ($constructor->getParameters() as $param) {
-            if ($type = $param->getType()) {
+            if (($type = $param->getType()) && !$type->isBuiltin()) {
                 $params[] = $this->get($type->getName());
             }
         }

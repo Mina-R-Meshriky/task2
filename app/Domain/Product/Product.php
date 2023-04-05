@@ -3,8 +3,12 @@
 namespace App\Domain\Product;
 
 use App\Domain\Product\ProductType\ProductType;
+use App\Domain\Shared\Model;
+use App\Domain\Shared\VO\Dimension;
+use App\Domain\Shared\VO\Size;
+use App\Domain\Shared\VO\Weight;
 
-class Product
+class Product extends Model
 {
     private int $id;
     private string $name;
@@ -108,11 +112,11 @@ class Product
     }
 
     /**
-     * @return int|null
+     * @return Size|null
      */
-    public function getSize(): ?int
+    public function getSize(): ?Size
     {
-        return $this->size;
+        return Size::from($this->size);
     }
 
     /**
@@ -126,11 +130,11 @@ class Product
     }
 
     /**
-     * @return int|null
+     * @return Weight|null
      */
-    public function getWeight(): ?int
+    public function getWeight(): ?Weight
     {
-        return $this->weight;
+        return Weight::from($this->weight);
     }
 
     /**
@@ -144,11 +148,11 @@ class Product
     }
 
     /**
-     * @return int|null
+     * @return Dimension|null
      */
-    public function getHeight(): ?int
+    public function getHeight(): ?Dimension
     {
-        return $this->height;
+        return Dimension::from($this->height);
     }
 
     /**
@@ -162,11 +166,11 @@ class Product
     }
 
     /**
-     * @return int|null
+     * @return Dimension|null
      */
-    public function getLength(): ?int
+    public function getLength(): ?Dimension
     {
-        return $this->length;
+        return Dimension::from($this->length);
     }
 
     /**
@@ -180,11 +184,11 @@ class Product
     }
 
     /**
-     * @return int|null
+     * @return Dimension|null
      */
-    public function getWidth(): ?int
+    public function getWidth(): ?Dimension
     {
-        return $this->width;
+        return Dimension::from($this->width);
     }
 
     /**
@@ -197,19 +201,19 @@ class Product
         return $this;
     }
 
-
-    public function toArray(): array
+    function jsonSerialize()
     {
         return [
-          'id' => $this->id,
-          'name' => $this->name,
-          'sku' => $this->sku,
-          'price' => $this->price,
-          'productType' => $this->productType->toArray(),
-          'size' => $this->size,
-          'weight' => $this->weight,
-          'Dimensions' => "$this->height x $this->width x $this->length"
+            'id' => $this->id,
+            'name' => $this->name,
+            'sku' => $this->sku,
+            'price' => $this->price,
+            'productType' => $this->productType,
+            'size' => str_contains($this->productType->getRequire(), 'size') ? $this->getSize()->formatted : null,
+            'weight' => str_contains($this->productType->getRequire(), 'weight') ? $this->getWeight()->formatted : null,
+            'dimensions' => str_contains($this->productType->getRequire(), 'dimensions')
+                ? $this->getHeight()->formatted." x ".$this->getWidth()->formatted ." x ". $this->getLength()->formatted
+                : null,
         ];
     }
-
 }

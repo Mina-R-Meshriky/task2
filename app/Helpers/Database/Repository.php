@@ -12,6 +12,11 @@ class Repository implements RepositoryInterface
         $this->db = $db;
     }
 
+    public function getTable(): string
+    {
+        return $this->table;
+    }
+
     protected function qualifyColumns($columns) {
         foreach ($columns as $i => $col) {
             $columns[$i] = "`$this->table`." . ($col === '*' ?  "$col" : "`$col`");
@@ -19,46 +24,61 @@ class Repository implements RepositoryInterface
         return $columns;
     }
 
-    public function all(): array
+    public function all(): ?array
     {
-        return $this->db->getMany("SELECT * FROM `{$this->table}`");
+        $records = $this->db->getMany("SELECT * FROM {$this->table}");
+
+        return $records !== false ? $records : null;
     }
 
-    public function get(int $id, array $columns = ['*']): array
+    public function get(int $id, array $columns = ['*']): ?array
     {
         $columns = join(',', $this->qualifyColumns($columns));
 
-        return $this->db->getOne("SELECT {$columns} FROM {$this->table} WHERE id = :id", [
+        $record = $this->db->getOne("SELECT {$columns} FROM {$this->table} WHERE id = :id", [
             ':id' => $id
         ]);
+
+        return $record !== false ? $record : null;
+    }
+
+    public function getByColumn(string $column, $value, array $columns = ['*']): ?array
+    {
+        $columns = join(',', $this->qualifyColumns($columns));
+
+        $record = $this->db->getOne("SELECT {$columns} FROM {$this->table} WHERE {$column} = :v", [
+            ':v' => $value
+        ]);
+
+        return $record !== false ? $record : null;
     }
 
     public function create(array $columns): int
     {
-        $this->db->query("INSERT INTO {$this->table} (:keys) VALUES (:values)", [
-            ':keys' => join(',', array_keys($columns)),
-            ':values' => join(',', array_values($columns))
-        ]);
+        $keys = join(',', array_keys($columns));
+
+        $q = rtrim(str_repeat('?,', count($columns)), ',');
+
+        $this->db->query("INSERT INTO {$this->table} ($keys) VALUES ($q)", array_values($columns));
 
         return (int) $this->db->lastInsertedId();
     }
 
-    public function update(int $id, array $columns): int
-    {
-        $this->db->query("UPDATE {$this->table} SET :set WHERE id = :id", [
-            ':id' => $id,
-            ':set' => join(', ', array_map(fn($i, $k) => "$k = $i", $columns))
-        ]);
-
-        return $id;
-    }
-
     public function delete(int $id): bool
     {
-        $this->db->query("DELETE FROM {$this->table} WHERE id = :id", [
+        $stmt = $this->db->query("DELETE FROM {$this->table} WHERE id = :id", [
             ':id' => $id,
         ]);
 
-        return true;
+        return $stmt->rowCount();
+    }
+
+    public function bulkDelete(array $ids): int
+    {
+        $q = rtrim(str_repeat("?,", count($ids)),',');
+
+        $stmt = $this->db->query("DELETE FROM {$this->table} WHERE id IN ($q)", $ids);
+
+        return $stmt->rowCount();
     }
 }

@@ -49,7 +49,7 @@ class Database
     }
 
     /**
-     * @return mixed
+     * @return mixed|false
      */
     public function getOne(string $query, ?array $params = [])
     {
@@ -57,7 +57,7 @@ class Database
     }
 
     /**
-     * @return array
+     * @return array|false
      */
     public function getMany(string $query, ?array $params = []): array
     {

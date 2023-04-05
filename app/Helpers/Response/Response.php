@@ -56,15 +56,25 @@ class Response
         return $this;
     }
 
-    public function changeContent(?array $content): self
+    /**
+     * @param mixed $content
+     * @return $this
+     */
+    public function changeContent($content): self
     {
-        $this->content = json_encode($content);
+        if(is_string($content)) {
+            $this->content = $content;
+        } else {
+            $this->content = json_encode($content);
+        }
+
         return $this;
     }
 
     private function applyHeader(): void
     {
         header("HTTP/1.1 {$this->code}");
+        header('Content-Type:application/json');
         http_response_code($this->code);
     }
 
