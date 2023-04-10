@@ -2,7 +2,7 @@
 
 namespace App\Domain\Shared\VO;
 
-class Weight
+class Money
 {
     public ?float $value;
     public string $formatted;
@@ -14,11 +14,7 @@ class Weight
         if(is_null($value)) {
             $this->formatted = '';
         } else {
-            if (str_contains($value, '.00')) {
-                $this->formatted = number_format($value)." Kg";
-            } else {
-                $this->formatted = number_format($value, 2)." Kg";
-            }
+            $this->formatted = number_format($value,2) . ' $';
         }
 
     }
