@@ -7,20 +7,15 @@
 namespace App\Core\Container;
 
 
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionException;
 
-class Container implements ContainerInterface
+class Container
 {
 
     private array $services = [];
 
     /**
-     * @throws NotFoundExceptionInterface
-     * @throws ContainerExceptionInterface
      * @throws ReflectionException
      * @throws NotFoundException
      */

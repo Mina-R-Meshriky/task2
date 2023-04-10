@@ -210,9 +210,9 @@ class Product extends Model
             'sku' => $this->sku,
             'price' => $this->getPrice()->formatted,
             'productType' => $this->productType,
-            'size' => str_contains($this->productType->getRequire(), 'size') ? $this->getSize()->formatted : null,
-            'weight' => str_contains($this->productType->getRequire(), 'weight') ? $this->getWeight()->formatted : null,
-            'dimensions' => str_contains($this->productType->getRequire(), 'dimensions')
+            'size' => strpos($this->productType->getRequire(), 'size') !== false ? $this->getSize()->formatted : null,
+            'weight' => strpos($this->productType->getRequire(), 'weight') !== false ? $this->getWeight()->formatted : null,
+            'dimensions' => strpos($this->productType->getRequire(), 'dimensions') !== false
                 ? $this->getHeight()->formatted." x ".$this->getWidth()->formatted ." x ". $this->getLength()->formatted
                 : null,
         ];

@@ -15,7 +15,7 @@ class Size
         if (is_null($value)) {
             $this->formatted = '';
         } else {
-            if (str_contains($value, '.00')) {
+            if (strpos($value, '.00') !== false) {
                 $this->formatted = number_format($value)." MB";
             } else {
                 $this->formatted = number_format($value, 2)." MB";

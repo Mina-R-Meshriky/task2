@@ -14,7 +14,7 @@ class Dimension
         if(is_null($value)) {
             $this->formatted = '';
         } else {
-            if(str_contains($value, '.00')) {
+            if(strpos($value, '.00') !== false) {
                 $this->formatted = number_format($value);
             } else {
                 $this->formatted = number_format($value, 2);

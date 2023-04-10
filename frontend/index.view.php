@@ -70,7 +70,7 @@
       };
     },
     beforeCreate() {
-      axios.get('/api/products')
+      axios.get('/api/products' + window.location.search)
           .then((res) => {
             this.products = res.data
           })
@@ -89,7 +89,7 @@
         if(this.deleteCheckbox.length === 0) {
           return;
         }
-        axios.delete('/api/products/bulk-delete?ids=' + this.deleteCheckbox.join(','))
+        axios.post('/api/products/bulk-delete?ids=' + this.deleteCheckbox.join(','))
             .then((res) => {
               if(res.data.count > 0) {
                 this.products = this.products.filter(obj => !this.deleteCheckbox.includes(obj.id))

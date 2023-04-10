@@ -36,7 +36,7 @@ $router->addRoute('get', '/api/products', 'Domain\Product\Http\ProductApiControl
 $router->addRoute('get', '/api/products/(\d+)', 'Domain\Product\Http\ProductApiController@show');
 $router->addRoute('post', '/api/products', 'Domain\Product\Http\ProductApiController@store');
 $router->addRoute('delete', '/api/products/(\d+)', 'Domain\Product\Http\ProductApiController@delete');
-$router->addRoute('delete', '/api/products/bulk-delete', 'Domain\Product\Http\ProductApiController@bulkDelete');
+$router->addRoute('post', '/api/products/bulk-delete', 'Domain\Product\Http\ProductApiController@bulkDelete');
 
 $router->addRoute('get', '/api/product-types', 'Domain\ProductType\Http\ProductTypeApiController@index');
 
