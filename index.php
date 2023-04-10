@@ -29,6 +29,7 @@ App::bind(Database::class, function() use ($config) {
 
 
 $router = new Router();
+$router->addRoute('get', '/', 'Domain\Product\Http\ProductController@index');
 $router->addRoute('get', '/products', 'Domain\Product\Http\ProductController@index');
 $router->addRoute('get', '/products/create', 'Domain\Product\Http\ProductController@create');
 
