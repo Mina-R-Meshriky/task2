@@ -4,6 +4,7 @@ namespace App\Domain\Product;
 
 
 use App\Core\Validator\Integer;
+use App\Core\Validator\Numeric;
 use App\Core\Validator\Letters;
 use App\Core\Validator\Max;
 use App\Core\Validator\In;
@@ -17,13 +18,13 @@ class ProductDTO
     public ?int $id;
     public ?string $name;
     public ?string $sku;
-    public ?int $price;
+    public ?string $price;
     public ?string $productType;
-    public ?int $size;
-    public ?int $weight;
-    public ?int $height;
-    public ?int $length;
-    public ?int $width;
+    public ?string $size;
+    public ?string $weight;
+    public ?string $height;
+    public ?string $length;
+    public ?string $width;
     private ?string $productTypeRequire;
 
     public function __construct(
@@ -89,14 +90,14 @@ class ProductDTO
         return Validator::make(get_object_vars($this), [
             'name' => [new Required, new Letters, new Max(45)],
             'sku' => [new Required, new Letters, new Max(45), new Unique('products', 'sku')],
-            'price' => [new Required, new Letters],
-            'productType' => [new Required, new letters],
+            'price' => [new Required, new Numeric],
+            'productType' => [new Required, new Integer],
             'productTypeRequire' => [new Required, new In('size', 'weight', 'dimensions')],
-            'size' => [new OnlyIf($this->productTypeRequire == 'size'), new Required, new Integer],
-            'weight' => [new OnlyIf($this->productTypeRequire == 'weight'), new Required, new Integer],
-            'length' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Integer],
-            'width' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Integer],
-            'height' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Integer],
+            'size' => [new OnlyIf($this->productTypeRequire == 'size'), new Required, new Numeric],
+            'weight' => [new OnlyIf($this->productTypeRequire == 'weight'), new Required, new Numeric],
+            'length' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Numeric],
+            'width' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Numeric],
+            'height' => [new OnlyIf($this->productTypeRequire == 'dimensions'), new Required, new Numeric],
 
         ])->validate();
     }

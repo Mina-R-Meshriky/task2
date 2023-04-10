@@ -3,25 +3,41 @@
 namespace App\Domain\Product;
 
 
+use App\Domain\ProductType\ProductTypeRepo;
+
 class ProductService
 {
 
     private ProductRepo $productRepo;
+    private ProductTypeRepo $productTypeRepo;
 
-    public function __construct(ProductRepo $productRepo)
+    public function __construct(ProductRepo $productRepo, ProductTypeRepo $productTypeRepo)
     {
         $this->productRepo = $productRepo;
+        $this->productTypeRepo = $productTypeRepo;
+
     }
 
     /**
      * @return array<Product>
      */
-    public function getAllProducts(): array
+    public function getAllProducts($filters): array
     {
-        $productsArray = $this->productRepo->all();
+        $productsArray = $this->productRepo->all($filters);
+
+        // to solve the N+1 problem.
+        foreach ($productsArray as $product) {
+            if (isset($productTypes[$product['product_type']])) {
+                continue;
+            }
+            $productTypes[$product['product_type']] = true;
+        }
+
+        $productTypesData = $this->productTypeRepo->getManyByColumn('id', array_keys($productTypes ?? []));
 
         foreach ($productsArray as $product) {
-            $products[] = ProductFactory::make($product);
+            $productTypeData = array_filter($productTypesData, fn($i) => $i['id'] == $product['product_type']);
+            $products[] = ProductFactory::make($product, reset($productTypeData));
         }
 
         return $products ?? [];
@@ -30,7 +46,10 @@ class ProductService
     public function getById($id): ?Product
     {
         if ($data = $this->productRepo->get($id)) {
-            return ProductFactory::make($data);
+
+            $productTypeData = $this->productTypeRepo->get($data['product_type']);
+
+            return ProductFactory::make($data, $productTypeData);
         }
 
         return null;
@@ -44,7 +63,9 @@ class ProductService
             $productDTO->id = $id;
         }
 
-        return ProductFactory::make($productDTO->toArray());
+        $productTypeData = $this->productTypeRepo->get($productDTO->productType);
+
+        return ProductFactory::make($productDTO->toArray(), $productTypeData);
     }
 
     public function delete($id): bool

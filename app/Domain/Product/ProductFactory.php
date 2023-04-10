@@ -2,17 +2,14 @@
 
 namespace App\Domain\Product;
 
-use App\Domain\Product\ProductType\ProductTypeFactory;
-use App\Domain\Product\ProductType\ProductTypeRepo;
-use App\Core\App;
+use App\Domain\ProductType\ProductTypeFactory;
 
 class ProductFactory
 {
 
-    public static function make(array $data)
+    public static function make(array $data, array $productTypeData = [])
     {
         $product = new Product();
-        $productTypeData = App::resolve(ProductTypeRepo::class)->getByColumn('slug', $data['product_type']);
 
         return $product
             ->setId($data['id'])

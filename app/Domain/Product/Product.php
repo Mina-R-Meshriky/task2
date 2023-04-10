@@ -2,9 +2,10 @@
 
 namespace App\Domain\Product;
 
-use App\Domain\Product\ProductType\ProductType;
+use App\Domain\ProductType\ProductType;
 use App\Domain\Shared\Model;
 use App\Domain\Shared\VO\Dimension;
+use App\Domain\Shared\VO\Money;
 use App\Domain\Shared\VO\Size;
 use App\Domain\Shared\VO\Weight;
 
@@ -13,13 +14,13 @@ class Product extends Model
     private int $id;
     private string $name;
     private string $sku;
-    private int $price;
+    private string $price;
     private ProductType $productType;
-    private ?int $size;
-    private ?int $weight;
-    private ?int $height;
-    private ?int $length;
-    private ?int $width;
+    private ?string $size;
+    private ?string $weight;
+    private ?string $height;
+    private ?string $length;
+    private ?string $width;
 
     /**
      * @return int
@@ -76,18 +77,18 @@ class Product extends Model
     }
 
     /**
-     * @return int
+     * @return Money
      */
-    public function getPrice(): int
+    public function getPrice(): Money
     {
-        return $this->price;
+        return Money::from($this->price);
     }
 
     /**
-     * @param  int  $price
+     * @param  string  $price
      * @return Product
      */
-    public function setPrice(int $price): Product
+    public function setPrice(string $price): Product
     {
         $this->price = $price;
         return $this;
@@ -120,10 +121,10 @@ class Product extends Model
     }
 
     /**
-     * @param  int|null  $size
+     * @param  string|null  $size
      * @return Product
      */
-    public function setSize(?int $size): Product
+    public function setSize(?string $size): Product
     {
         $this->size = $size;
         return $this;
@@ -138,10 +139,10 @@ class Product extends Model
     }
 
     /**
-     * @param  int|null  $weight
+     * @param  string|null  $weight
      * @return Product
      */
-    public function setWeight(?int $weight): Product
+    public function setWeight(?string $weight): Product
     {
         $this->weight = $weight;
         return $this;
@@ -156,10 +157,10 @@ class Product extends Model
     }
 
     /**
-     * @param  int|null  $height
+     * @param  string|null  $height
      * @return Product
      */
-    public function setHeight(?int $height): Product
+    public function setHeight(?string $height): Product
     {
         $this->height = $height;
         return $this;
@@ -174,10 +175,10 @@ class Product extends Model
     }
 
     /**
-     * @param  int|null  $length
+     * @param  string|null  $length
      * @return Product
      */
-    public function setLength(?int $length): Product
+    public function setLength(?string $length): Product
     {
         $this->length = $length;
         return $this;
@@ -192,10 +193,10 @@ class Product extends Model
     }
 
     /**
-     * @param  int|null  $width
+     * @param  string|null  $width
      * @return Product
      */
-    public function setWidth(?int $width): Product
+    public function setWidth(?string $width): Product
     {
         $this->width = $width;
         return $this;
@@ -207,7 +208,7 @@ class Product extends Model
             'id' => $this->id,
             'name' => $this->name,
             'sku' => $this->sku,
-            'price' => $this->price,
+            'price' => $this->getPrice()->formatted,
             'productType' => $this->productType,
             'size' => str_contains($this->productType->getRequire(), 'size') ? $this->getSize()->formatted : null,
             'weight' => str_contains($this->productType->getRequire(), 'weight') ? $this->getWeight()->formatted : null,
