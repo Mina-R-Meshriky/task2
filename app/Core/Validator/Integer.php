@@ -12,7 +12,7 @@ class Integer implements RuleInterface
 
     public function errorMessage(): string
     {
-        return "This value should be an integer";
+        return "Please, provide the data of indicated type";
     }
 
     public function isStopping(): bool

@@ -2,22 +2,22 @@
 
 namespace App\Core\Validator;
 
-class Required implements RuleInterface
+class Numeric implements RuleInterface
 {
 
     public function valid($value): bool
     {
-        return isset($value) && $value !== '';
+        return is_numeric($value);
     }
 
     public function errorMessage(): string
     {
-        return "Please, submit required data";
+        return "Please, provide the data of indicated type";
     }
 
     public function isStopping(): bool
     {
-        return true;
+        return false;
     }
 
     public function unsetDataKey(): bool

@@ -12,7 +12,7 @@ class Letters implements RuleInterface
 
     public function errorMessage(): string
     {
-        return "This value should be a string";
+        return "Please, provide the data of indicated type";
     }
 
     public function isStopping(): bool
