@@ -24,9 +24,20 @@ class Repository implements RepositoryInterface
         return $columns;
     }
 
-    public function all(): ?array
+    public function all($filters = []): ?array
     {
-        $records = $this->db->getMany("SELECT * FROM {$this->table}");
+        $sql = "SELECT * FROM {$this->table}";
+
+        // very simple filter, only supports ANDs and strings
+        foreach ($filters as $k => $v) {
+            if(array_key_first($filters) == $k) {
+                $sql .= " WHERE $k like ?";
+            } else {
+                $sql .= " AND $k like ?";
+            }
+        }
+
+        $records = $this->db->getMany($sql, array_values($filters));
 
         return $records !== false ? $records : null;
     }
@@ -51,6 +62,19 @@ class Repository implements RepositoryInterface
         ]);
 
         return $record !== false ? $record : null;
+    }
+
+    public function getManyByColumn(string $column, $values = [], array $columns = ['*']): ?array
+    {
+        if(empty($values)) return null;
+
+        $q = rtrim(str_repeat("?,", count($values)),',');
+
+        $columns = join(',', $this->qualifyColumns($columns));
+
+        $records = $this->db->getMany("SELECT {$columns} FROM {$this->table} WHERE {$column} in ($q)", $values);
+
+        return $records !== false ? $records : null;
     }
 
     public function create(array $columns): int

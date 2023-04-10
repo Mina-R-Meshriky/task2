@@ -6,7 +6,7 @@ interface RepositoryInterface
 {
     public function getTable();
 
-    public function all();
+    public function all(array $filters = []);
 
     public function get(int $id, array $columns = ['*']);
 
