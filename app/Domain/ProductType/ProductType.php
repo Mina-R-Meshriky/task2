@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Product\ProductType;
+namespace App\Domain\ProductType;
 
 use App\Domain\Shared\Model;
 
