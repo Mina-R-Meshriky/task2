@@ -29,12 +29,16 @@ App::bind(Database::class, function() use ($config) {
 
 
 $router = new Router();
-
 $router->addRoute('get', '/products', 'Domain\Product\Http\ProductController@index');
-$router->addRoute('get', '/products/(\d+)', 'Domain\Product\Http\ProductController@show');
-$router->addRoute('post', '/products', 'Domain\Product\Http\ProductController@store');
-$router->addRoute('delete', '/products/(\d+)', 'Domain\Product\Http\ProductController@delete');
-$router->addRoute('delete', '/products/bulk-delete', 'Domain\Product\Http\ProductController@bulkDelete');
+$router->addRoute('get', '/products/create', 'Domain\Product\Http\ProductController@create');
+
+$router->addRoute('get', '/api/products', 'Domain\Product\Http\ProductApiController@index');
+$router->addRoute('get', '/api/products/(\d+)', 'Domain\Product\Http\ProductApiController@show');
+$router->addRoute('post', '/api/products', 'Domain\Product\Http\ProductApiController@store');
+$router->addRoute('delete', '/api/products/(\d+)', 'Domain\Product\Http\ProductApiController@delete');
+$router->addRoute('delete', '/api/products/bulk-delete', 'Domain\Product\Http\ProductApiController@bulkDelete');
+
+$router->addRoute('get', '/api/product-types', 'Domain\ProductType\Http\ProductTypeApiController@index');
 
 $response = $router->serveRoute($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
